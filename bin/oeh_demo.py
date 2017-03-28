@@ -1,4 +1,3 @@
-#!/app/NoSQL_demo/bin/python27
 #################################################################################
 #************************************************************************************************#
 # Script: nosql_demo                                                                             #
@@ -9,7 +8,7 @@
 #------------------------------------------------------------------------------------------------#
 #************************************************************************************************#
 import time, logging, sys, uuid, json, random, os, socket, subprocess, calendar, requests, ast
-from datetime import date
+from datetime import date 
 from threading import Thread
 from multiprocessing.pool import ThreadPool
 from multiprocessing import Pool
@@ -17,7 +16,7 @@ from functools import partial
 #from nosqldb import ConnectionException, Factory, StoreConfig
 from bottle import route, run, request, static_file, response
 
-global rows_inserted, init_time, ellapsed_time, rows_per_second, port, max_rows, current_rows_inserted, current_start_time, current_rows_per_second, current_ellapsed_time, current_init_time, current_max_rows, last_run, running, system_memory, system_cpus, date_today, current_max_rows
+global params, rows_inserted, init_time, ellapsed_time, rows_per_second, port, max_rows, current_rows_inserted, current_start_time, current_rows_per_second, current_ellapsed_time, current_init_time, current_max_rows, last_run, running, system_memory, system_cpus, date_today, current_max_rows
 
 root_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -48,79 +47,47 @@ def aggregate(store, building):
 	return aggregate_set
 
 def retrieve(building):
+	global params
 	print "Getting stats for building %s" % building
 	date_today = date.today()
 	#store = open_store()
-	
+
 	#pool = ThreadPool(processes=1)
 	#async_result = pool.apply_async(aggregate, (store, building)) # thread the reading so reading functions dont stop
 	#TFL: Kafka Modification to Read from Kafka
 	# CREATE THE CONSUMER GROUP
-        url     = "https://141.144.137.102:1080/restproxy/consumers/groupName"
-        payload='{"name": "my_instanceID", "format": "json", "auto.offset.reset": "smallest"}'
+	url="https://"+params["eventhubIP"]+":"+params["eventhubport"]+"/restproxy/consumers/groupName"
+	payload='{"name": "my_instanceID", "format": "json", "auto.offset.reset": "smallest"}'
 
-        headers = {"Content-Type": "application/vnd.kafka.json.v1+json"}
-        res = requests.post(url, auth=('admin','Welcome1'), data=payload, headers=headers, verify=False)
+	headers = {"Content-Type": "application/vnd.kafka.json.v1+json"}
+	res = requests.post(url, auth=(params["user"],params["password"]), data=payload, headers=headers, verify=False)
 	print("Output from the GROUP: ", res)
 	# READ FROM THE TOPIC
-        url     = "https://141.144.137.102:1080/restproxy/consumers/groupName/instances/my_instanceID/topics/gse00010906-myOEHCS"
-        headers = {"Accept": "application/vnd.kafka.json.v1+json"}
-        res = requests.get(url, auth=('admin','Welcome1'), headers=headers, verify=False)
-        print(res)
-        target=open("raw.json",'w')
+	url     = "https://"+params["eventhubIP"]+":"+params["eventhubport"]+"/restproxy/consumers/groupName/instances/my_instanceID/topics/"+params["topic"]
+	headers = {"Accept": "application/vnd.kafka.json.v1+json"}
+	res = requests.get(url, auth=(params["user"],params["password"]), headers=headers, verify=False)
+	print(res)
+	target=open("raw.json",'w')
 	target.truncate()
 	target.write(res.text)
 	target.close()
-        chart_format = []
-        chart_format.append( [ "Day", "Light", "Temperature" ] )
+	chart_format = []
+	chart_format.append( [ "Day", "Light", "Temperature" ] )
 
 	index=0
 	with open('raw.json', 'r') as f:
-    		data = json.loads(f.read())
+		data = json.loads(f.read())
 
 		for value in data:
 			index=index+1
-                        value_j=eval(str(value))
-	              	print ("Deleting OE.. ", value_j['value']['temperature'])
+			value_j=eval(str(value))
+			print ("Deleting OE.. ", value_j['value']['temperature'])
 			building=value_j['value']['building']
 			chart_format.append( [ str(index),  int(value_j['value']["light"]), int(value_j['value']["temperature"]) ] )
-        print chart_format
-        return {"title" : building, "data" : chart_format}
+			print chart_format
+	return {"title" : building, "data" : chart_format}
 
 
-	#print("TEXT ", res.text)
-        #x=ast.literal_eval(res.text)
-
-	#x = ast.literal_eval(res.text)
-	#x= [n.strip() for n in x]
-	#print("XXXXXXXXXX: " ,x)
-#        with open('raw.json') as json_data:
-#		d=json.loads(json_data)
-#		print(d)
-
-#        data=json.loads(open("raw.json"))
-	
-
-
-        #data=json.loads(res.text[0]) 
-#	print("JSON:", data)
-#data = json.loads(str(res.text).replace("[","").replace("]",""))
-#	for value in data['value']:
-#        	print ("Deleting OEHCS... ", value[temperature])
-
-
-
-
-#	aggregate_set = async_result.get()  #
-	
-	#print aggregate_set
-#	chart_format = []
-#	chart_format.append( [ "Day", "Light", "Temperature" ] )
-#	for index in aggregate_set.iterkeys():
-#		chart_format.append( [ str(index), aggregate_set[index]["light"], aggregate_set[index]["temperature"] ] )
-#	store.close()
-#	print chart_format
-#	return {"title" : building, "data" : chart_format}
 
 def insert_random_row( table_name, building_name, floor_number, temperature_min, temperature_max, light_min, light_max):
 	random_coord_index = random.randint(0, len(random_coords) - 1)
@@ -139,25 +106,25 @@ def insert_random_row( table_name, building_name, floor_number, temperature_min,
 		"sensor_location" : str( random.randint(0, 50) ),
 		"light" : 			str( random.randint( light_min, light_max ) )
 	}
-        row_i=str(row)
-       	row_i=row_i.replace("'",'"')
-        #print ("ROW: ", row_i)
-        
+	row_i=str(row)
+	row_i=row_i.replace("'",'"')
+	#print ("ROW: ", row_i)
+
 	#TFL:store.put(table_name, row)
 	#Command added /TFL
-	bash_com = "curl -i -k -X POST -u  'admin:Welcome1' -H 'Content-Type: application/vnd.kafka.json.v1+json' --data '{\"records\": [{\"value\":#ROW#}]}' https://141.144.137.102:1080/restproxy/topics/gse00010906-myOEHCS"
-        bash_com=bash_com.replace("#ROW#",row_i)
-    #    print("the command", bash_com)
-        #print("******************* EXECUTING THE CODE")
-	url     = "https://141.144.137.102:1080/restproxy/topics/gse00010906-myOEHCS"
+	bash_com = "curl -i -k -X POST -u  '"+params["user"]+":"+params["password"]+"' -H 'Content-Type: application/vnd.kafka.json.v1+json' --data '{\"records\": [{\"value\":#ROW#}]}' https://"+params["eventhubIP"]+":"+params["eventhubport"]+"/restproxy/topics/"+params["identitydomain"]+"-"+params["topic"]
+	bash_com=bash_com.replace("#ROW#",row_i)
+	#    print("the command", bash_com)
+	#print("******************* EXECUTING THE CODE")
+	url     = "https://"+params["eventhubIP"]+":"+params["eventhubport"]+"/restproxy/topics/"+params["topic"]
 	payload = '{"records": [{"value":#ROW#}]}'
-        payload=payload.replace("#ROW#",row_i)
-        #print("###################PAYLOAD: ",payload)
+	payload = payload.replace("#ROW#",row_i)
+	#print("###################PAYLOAD: ",payload)
 	headers = {"Content-Type": "application/vnd.kafka.json.v1+json"}
-	res = requests.post(url, auth=('admin','Welcome1'), data=payload, headers=headers, verify=False)
+	res = requests.post(url, auth=(params["user"],params["password"]), data=payload, headers=headers, verify=False)
 	#subprocess.Popen(bash_com)
 	#output = subprocess.check_output(['bash','-c', bash_com]) 
-        print("Output: ", res)
+	print("Output: ", res)
 	#print("Finish the code")
 
 def start_threads(thread_qty, building_name, floor_number, temperature_min, temperature_max, light_min, light_max):
@@ -240,10 +207,10 @@ def save_object(table_name, object, store=False):
 	store.close() 
  
 def get_memory(Mem):
-	return float(filter (None, subprocess.check_output( "cat /proc/meminfo | grep " + Mem + ":" , shell=True ).split(" "))[1])
+	return float(filter (None, subprocess.check_output( "cat /proc/meminfo | grep " + Mem + ":" , shell=True ).split(" "))[1])	
 	
 def get_cpus():
-	return float( subprocess.check_output( "nproc" , shell=True ) )
+	return float( subprocess.check_output( "nproc" , shell=True ) )	
  
 def select(table, query):
 	store = open_store()
@@ -257,7 +224,7 @@ def select(table, query):
 	store.close() 
  
 def update_today_ellapsed_time():
-   global rows_inserted, init_time, ellapsed_time, rows_per_second, current_rows_inserted, current_start_time, current_rows_per_second, current_ellapsed_time, current_init_time
+   global params, rows_inserted, init_time, ellapsed_time, rows_per_second, current_rows_inserted, current_start_time, current_rows_per_second, current_ellapsed_time, current_init_time
    
    ellapsed_time = time.time() - init_time
    rows_per_second = rows_inserted / ellapsed_time
@@ -270,8 +237,8 @@ def get_globals():
 	free_memory = get_memory("MemFree")
 	return { "rows_inserted" : rows_inserted, "init_time" : init_time, "rows_per_second" : rows_per_second, "ellapsed_time" : ellapsed_time, "current_rows_inserted" : current_rows_inserted, "current_init_time" : current_init_time, "current_rows_per_second" : current_rows_per_second, "current_ellapsed_time" : current_ellapsed_time, "max_rows" : max_rows, "current_max_rows" : current_max_rows, "running" : running ,  "system_memory" : system_memory,  "system_cpus" : system_cpus,  "free_memory" : free_memory }
    
-def init_globals():
-	global rows_inserted, init_time, ellapsed_time, rows_per_second, max_rows, port, current_rows_inserted, current_start_time, current_rows_per_second, current_ellapsed_time, current_init_time, current_max_rows, last_run, running, system_memory, system_cpus, date_today
+def init_globals(argparams):
+	global params, rows_inserted, init_time, ellapsed_time, rows_per_second, max_rows, port, current_rows_inserted, current_start_time, current_rows_per_second, current_ellapsed_time, current_init_time, current_max_rows, last_run, running, system_memory, system_cpus, date_today
 	rows_inserted = ellapsed_time = rows_per_second = max_rows = current_rows_inserted = current_start_time = current_rows_per_second = current_ellapsed_time = last_run = running = 0
 	current_init_time = time.time()
 	init_time = time.time()
@@ -279,10 +246,15 @@ def init_globals():
 	free_memory = get_memory("MemFree")
 	system_cpus = get_cpus()
 	date_today = date.today()
-	if len(sys.argv) > 1:
-		port = sys.argv[1]
-	else:
-		port = 8100
+	params = {
+		"eventhubIP":argparams[1],
+		"eventhubport":argparams[2],
+		"identitydomain":argparams[3],
+		"topic":argparams[4],
+		"user":argparams[5],
+		"password":argparams[6]
+	}
+	port = 8100
 		
 @route('/refresh_environment', method='POST')
 def refresh_environment():
@@ -326,7 +298,7 @@ def retrieve_row():
 def get_status():
 	response.set_header('Access-Control-Allow-Origin', '*')
 	
-	global rows_inserted, init_time, ellapsed_time, rows_per_second, current_rows_inserted, current_start_time, current_rows_per_second, current_ellapsed_time, current_init_time, last_run	
+	global params, rows_inserted, init_time, ellapsed_time, rows_per_second, current_rows_inserted, current_start_time, current_rows_per_second, current_ellapsed_time, current_init_time, last_run	
 	globals = get_globals()
 	print globals
 	return json.dumps( globals )
@@ -336,9 +308,9 @@ def run_server():
 	print "Starting server in port " + str(port)
 	run(host='0.0.0.0', port=port)
 		
-if __name__ == "__main__":		
+if __name__ == "__main__":				
 	if len(sys.argv) > 1 and sys.argv[1] == "debug":
 		locals()[sys.argv[2]]()
 	else:
-		init_globals()	
+		init_globals(sys.argv)	
 		run_server()		
