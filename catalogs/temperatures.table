@@ -1,0 +1,20 @@
+
+table create -name temperatures
+
+add-field -type INTEGER -name uuid
+add-field -type DOUBLE -name lat
+add-field -type DOUBLE -name lon
+add-field -type DOUBLE -name temperature
+add-field -type INTEGER -name timestamp
+add-field -type STRING -name sku
+add-field -type STRING -name building
+add-field -type INTEGER -name floor
+add-field -type STRING -name sensor_location
+add-field -type INTEGER -name light
+
+
+primary-key -field uuid
+
+exit
+
+plan add-table -name temperatures -wait 

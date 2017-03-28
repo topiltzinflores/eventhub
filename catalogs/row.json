@@ -1,0 +1,12 @@
+{
+"uuid" : "1",
+"lat" : 98.1254, 
+"lon" : 20.15413,
+"temperature" : 100.5,
+"timestamp" : 123456789,
+"sku" : "ABC123",
+"building" : "100S",
+"floor" : 14,
+"sensor_location" : "A",
+"light" : 1
+}

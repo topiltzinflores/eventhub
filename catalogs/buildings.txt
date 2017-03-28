@@ -1,0 +1,2 @@
+create table buildings (uuid STRING, lat STRING , lon STRING , temperature STRING , timestamp STRING , day STRING , month STRING , year STRING ,  sku STRING, building STRING, floor STRING , sensor_location STRING, light STRING , PRIMARY KEY ( SHARD( building, day, month, year ), uuid ) )
+

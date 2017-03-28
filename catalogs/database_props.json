@@ -1,0 +1,6 @@
+{
+	"store_host_port" : "bigdatalite.localdomain:5000", 
+	"proxy_host_port" : "bigdatalite.localdomain:7010",
+	"hive_host" : "bigdatalite.localdomain",
+	"hive_port" : "9083"
+}
