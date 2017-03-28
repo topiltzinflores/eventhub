@@ -1,6 +1,6 @@
 FROM python:2.7
 
-CP eventhub /app/
+COPY eventhub /app/
 
 WORKDIR /app/
 
