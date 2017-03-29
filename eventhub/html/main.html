@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://cloud.oracle.com/bigdatapreparation -->
+<html ng-app="ui.bootstrap.demo" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="layoutversionnumber" content="2015.Q1.1.0">
+    <meta name="layoutversiondate" content="2015-01-20">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Oracle Event Hub Plattform Demo | GSE</title>
+
+    <meta name="title" content="Oracle Event Hub Platform CSCE | Oracle Cloud">
+
+    <meta name="description" content="A highly intuitive and interactive tool kit for analysing and preparing big data for processing.">
+<link href="resources/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="./Big Data Preparation _ Oracle Cloud_files/normalize.css">
+    <link type="text/css" rel="stylesheet" href="./Big Data Preparation _ Oracle Cloud_files/foundation.min.css">
+    <link type="text/css" rel="stylesheet" href="./Big Data Preparation _ Oracle Cloud_files/foundation-icons.css">
+    <link type="text/css" rel="stylesheet" href="./Big Data Preparation _ Oracle Cloud_files/style.css">
+    <link type="text/css" rel="stylesheet" href="./Big Data Preparation _ Oracle Cloud_files/slick.css">
+    <link type="text/css" rel="stylesheet" href="./Big Data Preparation _ Oracle Cloud_files/jquery.mmenu.all.css">
+    <link type="text/css" rel="stylesheet" href="./Big Data Preparation _ Oracle Cloud_files/cloud.base.v2.css">
+    <link type="text/css" rel="stylesheet" href="./Big Data Preparation _ Oracle Cloud_files/cloud.v2.css">
+    <link rel="icon" href="https://cloud.oracle.com/res/images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://cloud.oracle.com/res/images/favicon.ico" type="image/x-icon">
+
+    <script type="text/javascript" src="./Big Data Preparation _ Oracle Cloud_files/modernizr.js"></script>
+
+    <script language="JavaScript" type="text/javascript" src="./Big Data Preparation _ Oracle Cloud_files/BrightcoveExperiences.js"></script>
+    <script language="JavaScript" type="text/javascript" src="./Big Data Preparation _ Oracle Cloud_files/APIModules_all.js"></script>
+
+    <meta class="foundation-data-attribute-namespace">
+    <meta class="foundation-mq-xxlarge">
+    <meta class="foundation-mq-xlarge">
+    <meta class="foundation-mq-large">
+    <meta class="foundation-mq-medium">
+    <meta class="foundation-mq-small">
+    <style></style>
+    <meta class="foundation-mq-topbar">
+	<style type="text/css">
+    #Wrapper_FixedWidth {min-width:974px;width:974px}
+    .header {height:140px; *height:130px;}
+	@media screen and (min-width: 768px) {
+	
+	.xx-dialog .modal-dialog {
+		width : 1080px;
+		min-width: 1080px;
+	}
+	.md-dialog .modal-dialog {
+		width : 480px;
+		min-width: 480px;
+	}
+
+}
+  </style>
+</head>
+
+<body class="" style="zoom: 1;"><!--<a id="hamburger" class="mm-fixed-top mm-slideout" href="#mmenu-cloud" style="display:none;"></a>-->
+
+    <div id="Page" class="mm-page mm-slideout">
+
+        <header>
+            <div class="row mega-menu">
+                <nav class="top-bar" data-topbar="" role="navigation" data-options="is_hover: false">
+                    <ul class="title-area">
+                        <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+                        <li class="toggle-topbar menu-icon"><a href="https://cloud.oracle.com/bigdatapreparation#"><span></span></a>
+                        </li>
+                        <li class="name">
+                            <a id="hamburger" class="mm-fixed-top" href="https://cloud.oracle.com/bigdatapreparation#mmenu-cloud" style="display: inline;" tabindex="-1"></a>
+                            <a href="https://cloud.oracle.com/home"><img alt="Oracle Cloud logo" class="oracle-cloud-logo-image" src="./Big Data Preparation _ Oracle Cloud_files/oracle-cloud-logo.png" border="0" style="max-width: none;">
+                            </a>
+                        </li>
+                    </ul>
+
+                    <section class="top-bar-section">
+                        <ul class="right hide-for-small-only">
+                            <li class="has-form show-for-small-only menu-search-area-block-mobile" style="display:none !important;">
+                                <form id="searchbox-form-mobile" action="https://cloud.oracle.com/sites/Satellite?c=Page&cid=1383852917223&pagename=cloudUiSite%2FPage%2FTestSearchPageLayout">
+                                    <div class="row menu-search-area-row-mobile" id="search_item_mobile">
+                                        <div class="small-10 columns menu-search-area-searchfield-block">
+                                            <!--  <input type="text" name="currentPage" value="1" class="not-display"></input>-->
+
+                                            <input id="searchbox-textfield-mobile" type="text" user-scalable="0" name="queryStr" placeholder="Search Oracle Cloud" maxlength="128">
+                                        </div>
+                                        <div class="small-2 columns  menu-search-area-searchicon">
+                                            <a class="button menu-search-image-block-image-link-mobile" onclick="searchboxSubmitMobile();">
+                                                <img class="menu-search-image-block-searchimage" src="./Big Data Preparation _ Oracle Cloud_files/func_magnifyingglass02_16_ena.png" alt="search">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                           
+								<div ng-controller="ModalDemoCtrl" style='display:inline'>
+									<li>
+										<a ng-click="open('demoaccessmodal', 'xx-dialog')" target='_blank'> &nbsp;&nbsp;Important information &nbsp;&nbsp;</a>  
+									</li> 
+								</div>
+							
+                            <li>
+                                <a href="https://demo.oracle.com/apex/f?p=GO:PAGE:0:DSD:NO:1:ID:32010" target='_blank'> &nbsp;&nbsp; Demo Script &nbsp;&nbsp; </a>
+                            </li>
+    			    <li>
+                                <a href="/index.html" target='_blank'> &nbsp;&nbsp; Cloud Console &nbsp;&nbsp; </a>
+                            </li>
+
+
+                            <li>
+                                <a href="https://demo.oracle.com" target='_blank'> &nbsp;&nbsp; GSE Demo Central &nbsp;&nbsp; </a> 
+                            </li>
+                        </ul>
+                    </section>
+
+            </div>
+        </header>
+        <section id="menu-search-block" class="show-for-medium-up full-width">
+            <form id="searchbox-form" action="https://cloud.oracle.com/sites/Satellite?c=Page&cid=1383852917223&pagename=cloudUiSite%2FPage%2FTestSearchPageLayout" style="display:none;">
+                <div class="row menu-search-area-row" id="search_item">
+                    <div class="large-8 medium-8 small-8 medium-push-2 columns menu-search-area-searchfield-block">
+                        <!--  <input type="text" name="currentPage" value="1" class="not-display"></input>-->
+                        <input id="searchbox-textfield" type="text" user-scalable="0" name="queryStr" placeholder="Search Oracle Cloud" maxlength="128">
+                    </div>
+                    <div class="large-1 medium-1 small-1 columns  medium-push-2 menu-search-area-searchicon">
+                        <a class="button menu-search-image-block-image-link" onclick="searchboxSubmit();">
+                            <img class="menu-search-image-block-searchimage" src="./Big Data Preparation _ Oracle Cloud_files/func_magnifyingglass02_16_ena.png" alt="search">
+                        </a>
+                    </div>
+                    <div class="large-1 medium-1 small-1 columns menu-search-close-image-link-column">
+                        <a class="button menu-search-close-image-link" onclick="searchbarclose();">
+                            <img class="" src="./Big Data Preparation _ Oracle Cloud_files/search_close.png" alt="search">
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section id="service-banner-section">
+            <div class="service-banner bg-color-platform">
+                <div class="row">
+                    <div class="small-12 medium-12 columns">
+                        <div class="table-display full-width">
+
+                            <div class="vcenter-table-cell service-banner-icon ">
+                                <img src="./Big Data Preparation _ Oracle Cloud_files/Satellite" class="hide-for-small-only " alt="">
+                            </div>
+
+                            <div class="small-3 medium-3 vcenter-table-cell small-only-text-center">
+                                <h1 class="h3 service-banner-title">Oracle Event Hub CSCE</h1>
+                            </div>
+                            <div>							
+<ol class="service-banner-title">
+					<li>Adjust parameters of capture using dropdowns below</li>
+					<li>Click on any building to monitor response rate and number of rows captured</li>
+					<li>Each sensor reading is captured by EventHub (kafka) in an unmatched speed rate.</li>
+				</ol>
+			 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="tabs-background-full-width full-width">
+
+            <section id="service-tabs-section">
+                <div class="row service-tabs">
+
+                    <dl class="sub-nav" role="menu" title="Menu List" data-equalizer="">
+
+                        <dd data-equalizer-watch="" role="menuitem" title="Overview" class="text-center service-tab small-12 medium-12 columns active" style="display:none;">
+                            <div class="service-tab-icon" onclick="redirectLocation(&#39;/bigdatapreparation?tabID=1426223865610&#39;, &#39;active&#39;);">
+                                <a class="OverviewTab active" data-trackas="OverviewTab">
+                                </a>
+                                <a class="service-tab-icon-href  active " href="https://cloud.oracle.com/bigdatapreparation?tabID=1426223865610">
+                                    <span class="service-tab-icon-href-title bold hide-for-small-only">
+		                         	Overview
+		                         </span>
+                                </a>
+                            </div>
+                        </dd>
+
+                    </dl>
+                </div>
+            </section>
+
+        </div>
+		
+	<table style="width:100%;">
+		<td style="width:20%;">
+			
+			<center>
+				<table >
+					<tr>
+						<td>Light:</td>
+						<td>
+							<select id="light">
+								<option value="0,10">0-10</option>
+								<option value="10,20" selected="selected">10-20</option>
+								<option value="30,40">30-40</option>
+								<option value="40,50">40-50</option>
+								<option value="50,60">50-60</option>
+								<option value="60,70">60-70</option>
+								<option value="70,80">70-80</option>
+								<option value="80,90">80-90</option>
+								<option value="90,100">90-100</option>
+								<option value="0,100">All random</option>
+							</select>
+						</td>							
+					</tr>
+					<tr>
+						<td>Temperature:</td>
+						<td>
+							<select id="temperature">
+								<option value="0,10">0-10</option>
+								<option value="10,20" selected="selected">10-20</option>
+								<option value="30,40">30-40</option>
+								<option value="40,50">40-50</option>
+								<option value="0,50">All random</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td># of readings:</td>
+						<td>
+							<select id="max_rows">
+								<option value="100">100</option>
+								<option value="1000">1K</option>
+								<option value="2500">2.5K</option>
+								<option value="5000">5K</option>
+								<option value="10000">10K</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td># of open connections (3 is optimal):</td>
+						<td>
+							<select id="threads">
+								<option>1</option>
+								<option>2</option>
+								<option selected="selected">3</option>
+								<option>4</option>								
+							</select>
+						</td>
+					</tr>
+				</table>
+			</center>
+		</td>
+		<td style="width:30%;">			
+			<center>
+   <button onclick="refresh_environment()" class="form-control">Refresh Environment</button>
+				Mode: <select id="read_write">
+					<option value="read">Read</option>
+					<option value="write">Write</option>
+				</select>
+				<table >
+					<tr>
+						<td>Rows per second:</td>
+						<td><span id="rows_per_second">0</span></td>								
+					</tr>
+					<tr>
+						<td>Elapsed time (last building):</td>
+						<td><span id="current_ellapsed_time">0</span></td>
+					</tr>
+					<tr>
+						<td>Rows inserted (since last refresh):</td>
+						<td><span id="rows_inserted">0</span></td>
+					</tr>
+					<tr>
+						<td>Rows inserted (last building):</td>
+						<td><span id="current_rows_inserted">0</span></td>
+					</tr>
+				</table>
+			</center>
+		</td>
+		<td>			
+			<center>
+				<div id="chart_div" style="width: 100%; height: 120px;"></div>		
+				<div id="curve_chart" style="width: 100%; height: 200px"></div>				
+			</center>
+		</td>
+	</tr>
+</table>
+<div class="progress-bar progress-bar--success" id="progress_bar">
+		  <div class="progress-bar__bar"id="progress_bar_bar"></div>
+		</div>
+		<img style="width:100%;" src="buildings.jpg" id="buildings" usemap="#hq_buildings">
+		<map name="hq_buildings">
+		  <area class="hq_buildings" shape="rect" coords="115,188,391,362" id="building100" alt="Building 100">
+		  <area class="hq_buildings" shape="rect" coords="415,130,657,364" id="building200" alt="Building 200">
+		  <area class="hq_buildings" shape="rect" coords="720,136,885,362" id="building300" alt="Building 300">
+		  <area class="hq_buildings" shape="rect" coords="936,198,1050,357" id="building400" alt="Building 400">
+		  <area class="hq_buildings" shape="rect" coords="1101,250,1261,358"  id="building500" alt="Building 500">
+		  <area class="hq_buildings" shape="rect" coords="1313,248,1515,364" id="building600" alt="Building 600">
+		</map>
+                    </div>
+                    
+                </div>
+
+        <div id="selectTrialDialog" style="display: none;">
+
+        </div>
+      
+
+		
+		<script type="text/ng-template" id="demoaccessmodal">
+			<div class="modal-body">
+				<h3>Demo Access credentials</h3>
+					
+				<table id="accountInfo" style="width:100%">
+					<tbody>
+						<tr>              
+							<th>Login</th>
+							<th>Username</th>
+							<th>Password</th>
+						</tr>			
+						<tr>
+							<td>unit64019.oracleads.com</td>
+              <td>oracle</td>
+							<td>welcome1</td>
+						</tr>
+						<tr>
+							<td>unit64019.oracleads.com</td>
+              <td>root</td>
+							<td>welcome1</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</script>
+		
+									
+		<script type="text/ng-template" id="gsesupportmodal">
+			<div class="modal-body">							
+				<h3>GSE Hotline Contacts</h3>
+				<center>
+					<table id="accountInfo">
+						<tbody>
+							<tr>
+								<th>Zone</th>
+								<th>Contact</th>
+							</tr>			
+							<tr>
+								<td>APAC</td>
+								<td>+65.6436.2150</td>
+							</tr>
+							<tr>
+								<td>EMEA</td>
+								<td>+44.118.9240808</td>
+							</tr>
+							<tr>
+								<td>US/CAN</td>
+								<td>+1.650.506.8763</td>
+							</tr>
+							<tr>
+								<td>LAD</td>
+								<td>+1.650.506.8763</td>
+							</tr>
+							<tr>
+								<td>Japan</td>
+								<td>+81-3-6834-6097</td>
+							</tr>
+						</tbody>
+					</table>
+					
+				</center>
+			</div>
+		</script>
+		<div ng-controller="ModalDemoCtrl" style='display:inline'>			
+			<div class="chat-tab show-for-medium-up" title="GSE Support" data-trackas="side-tab" data-lbl="contact" style="top: 285px; right: 0px;">		
+				<a ng-click="open('gsesupportmodal', 'md-dialog')" href="#">
+					
+					<div> &nbsp;&nbsp;&nbsp;GSE Support </div>
+				</a>				
+			</div>
+			<div class="contact-tab show-for-medium-up" title="Contact Us" data-trackas="side-tab" data-lbl="contact" style="top: 285px; right: 0px;">
+				<a href="mailto:luis.a.arias@oracle.com,michael.schulman@oracle.com?Subject=GSE Big Data Preparation Help">
+					<img alt="Contact Us" src="./Big Data Preparation _ Oracle Cloud_files/spacer.gif" border="0">
+					<div> Contact Us </div>
+				</a>
+			</div>
+		</div>				
+				<!-- <a  ng-click="open()">Access & Credentials&nbsp;</a>			    -->
+			<!-- <li>
+				<a ng-click="open()" target='_blank'> &nbsp;&nbsp;Contact Us &nbsp;&nbsp;</a>  
+			</li>  -->
+
+        
+
+        <!-- <div class="chat-tab  show-for-medium-up" style="top: 269px; right: 0px;">
+		<a href="/clickthrough/BDPTransform.html" >
+			<img src="./Big Data Preparation _ Oracle Cloud_files/spacer.gif" border="0"><div>Quick Tour</div>
+		</a>
+	</div> -->
+
+        
+                </div>
+            </div>
+        </div>
+
+            </div>
+			
+			
+			
+            <script type="text/javascript" src="./Big Data Preparation _ Oracle Cloud_files/jquery-1.9.0.min.js"></script>
+            <script type="text/javascript" src="./Big Data Preparation _ Oracle Cloud_files/jquery.dotdotdot.js"></script>
+            <script type="text/javascript" src="./Big Data Preparation _ Oracle Cloud_files/foundation.min.js"></script>
+			<script src="resources/angular.js"></script>
+			<script src="resources/ui-bootstrap-tpls-0.13.0.js"></script>
+			
+			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			
+			<script type="text/javascript" src="nosql_demo_front.js"></script>
+            
+			<script type='text/javascript'>
+				angular.module('ui.bootstrap.demo', ['ui.bootstrap']);
+				angular.module('ui.bootstrap.demo').controller('ModalDemoCtrl', function ($scope, $modal, $log) {
+
+				  $scope.items = ['item1', 'item2', 'item3'];
+
+				  $scope.animationsEnabled = true;
+
+				  $scope.open = function (template, windowClass) {
+
+					var modalInstance = $modal.open({
+					  animation: $scope.animationsEnabled,
+					  templateUrl: template,
+					  controller: 'ModalInstanceCtrl',
+					  //width: width,					  
+					  windowClass: windowClass,
+					  //size: size,
+					  resolve: {
+						items: function () {
+						  return $scope.items;
+						}
+					  }
+					});
+
+					modalInstance.result.then(function (selectedItem) {
+					  $scope.selected = selectedItem;
+					}, function () {
+					  $log.info('Modal dismissed at: ' + new Date());
+					});
+				  };
+
+				  $scope.toggleAnimation = function () {
+					$scope.animationsEnabled = !$scope.animationsEnabled;
+				  };
+
+				});
+
+				// Please note that $modalInstance represents a modal window (instance) dependency.
+				// It is not the same as the $modal service used above.
+
+				angular.module('ui.bootstrap.demo').controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+				  $scope.items = items;
+				  $scope.selected = {
+					item: $scope.items[0]
+				  };
+
+				  $scope.ok = function () {
+					$modalInstance.close($scope.selected.item);
+				  };
+
+				  $scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				  };
+				});
+			</script>
+            <script type="text/javascript" src="./Big Data Preparation _ Oracle Cloud_files/slick.js"></script>
+            <script type="text/javascript" src="./Big Data Preparation _ Oracle Cloud_files/cloud.v2.js"></script>
+			
+        </footer>
+
+    </div>
+
+    <div id="mm-blocker" class="mm-slideout"></div>
+</body>
+
+</html>
