@@ -63,7 +63,7 @@ def retrieve(building):
 	res = requests.post(url, auth=(params["user"],params["password"]), data=payload, headers=headers, verify=False)
 	print("Output from the GROUP: ", res)
 	# READ FROM THE TOPIC
-	url     = "https://"+params["eventhubIP"]+":"+params["eventhubport"]+"/restproxy/consumers/groupName/instances/my_instanceID/topics/"+params["topic"]
+	url     = "https://"+params["eventhubIP"]+":"+params["eventhubport"]+"/restproxy/consumers/groupName/instances/my_instanceID/topics/"+params["identitydomain"]+"-"+params["topic"]
 	headers = {"Accept": "application/vnd.kafka.json.v1+json"}
 	res = requests.get(url, auth=(params["user"],params["password"]), headers=headers, verify=False)
 	print(res)
@@ -116,7 +116,7 @@ def insert_random_row( table_name, building_name, floor_number, temperature_min,
 	bash_com=bash_com.replace("#ROW#",row_i)
 	#    print("the command", bash_com)
 	#print("******************* EXECUTING THE CODE")
-	url     = "https://"+params["eventhubIP"]+":"+params["eventhubport"]+"/restproxy/topics/"+params["topic"]
+	url     = "https://"+params["eventhubIP"]+":"+params["eventhubport"]+"/restproxy/topics/"+params["identitydomain"]+"-"+params["topic"]
 	payload = '{"records": [{"value":#ROW#}]}'
 	payload = payload.replace("#ROW#",row_i)
 	#print("###################PAYLOAD: ",payload)
